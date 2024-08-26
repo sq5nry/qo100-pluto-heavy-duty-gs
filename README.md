@@ -29,7 +29,7 @@ Features:
 | ![Arduino Due MIDI controller](sw-midi-ctrl/ptt-vol.jpg) |
 
 
-:warning: Smooth remote work when talking directly to Pluto (eg. SDR Console) requires a low-jitter connection and bandwidth to stream the whole NB transponder - roughly 576k samples. Web interface will settle for an ordinary 1Mbps link.
+:warning: Smooth remote work when talking directly to Pluto (eg. SDR Console) requires a low-jitter 20Mbps connection to stream the whole NB transponder - roughly 576k samples. Web interface will settle for an ordinary 512kbps link.
 
 # Troubleshooting
 
