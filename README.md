@@ -19,26 +19,24 @@ Features:
 
 # Operation
 
-1. Connect to a router with DHCP server via 802.3bt PoE injector offering 90W. 15 meters of SSTP CAT6 works fine. The Raspberry host will be reachable under hostname `remsdr-rpi4`. Configure remote access (port forwarding or <a href="https://www.zerotier.com" target="_blank">ZeroTier VPN</a> - installed)
+1. Connect to a router with DHCP server via 802.3bt PoE injector offering 90W. 15 meters of SSTP CAT6 works fine. The Raspberry host will be reachable under hostname `remsdr-rpi4`. Configure remote access (eg port forwarding or <a href="https://www.zerotier.com" target="_blank">ZeroTier VPN</a> - installed)
 2. Configure the web access <a href="https://remsdr-rpi4/settings.html"  target="_blank">https://remsdr-rpi4/settings.html</a> as described in <a href="https://f1atb.fr/remote-sdr-v5-raspberry-4b-or-orange-pi-image-installation/" target="_blank">https://f1atb.fr/remote-sdr-v5-raspberry-4b-or-orange-pi-image-installation</a>. Finally, navigate to the start page <a href="https://remsdr-rpi4" target="_blank">https://remsdr-rpi4</a>.
 3. Alternatively, connect to Pluto locally by specifying `ip:remsdr-rpi4` as an address. Parallel use with the web interface mostly won't work.\
- For SDR Console follow the <a href="https://www.sdr-radio.com/EsHail-2" target="_blank">configuration manual</a>. Via USB connect the PTT button and volume knob for best experience.
+ For SDR Console follow the <a href="https://www.sdr-radio.com/EsHail-2" target="_blank">configuration manual</a>. Connect the USB push-to-talk button and volume knob for best experience.
  
 | Arduino Due MIDI controller      |
 |----------------------------------|
 | ![Arduino Due MIDI controller](sw-midi-ctrl/ptt-vol.jpg) |
 
 
-:warning: Smooth remote work when talking directly to Pluto (eg. SDR Console) requires a low-jitter 20Mbps connection to stream the whole NB transponder at 576k samples. Web interface will settle for an ordinary 512kbps link.
+:warning: Smooth remote work when talking directly to Pluto (eg. SDR Console) requires a low-jitter 20Mbps connection to stream the whole 500kHz NB transponder. Web interface will settle for an ordinary 512kbps link.
 
 # Troubleshooting
 
-1. Restart Pluto if XX available
-2. Try turning it off and on again using your remote AC switch.
-3. Check GPS status on the dashboard panel inside the box.
-4. Log in via SSH to conduct further diagnosis.
-
-# Service Manual
+1. Restart Pluto via web interface
+2. Try turning it off and on again using your remote AC switch
+3. Check GPS status on the dashboard panel inside the box
+4. Log in via SSH to conduct further diagnosis
 
 
 
