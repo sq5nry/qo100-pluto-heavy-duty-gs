@@ -14,10 +14,10 @@ if [ "$PHASE" = "post-up" ]; then
         echo ETHIP=$ETH_IP, PLUTO_IP=$PLUTO_IP, adding rules >> $LOG_FILE
         sudo iptables -t nat -A PREROUTING -p tcp --dport 30431 -j DNAT --to-destination ${PLUTO_IP}:30431
         sudo iptables -t nat -A POSTROUTING -p tcp -d ${PLUTO_IP} --dport 30431 -j SNAT --to-source ${ETH_IP}
-        sudo iptables-save >> $LOG_FILE
+        iptables-save | sudo tee -a $LOG_FILE > /dev/null
         echo rules saved, setting ipv4.ip_forward=1 >> $LOG_FILE
         sudo sysctl net.ipv4.ip_forward=1
-        echo done >> $LOG_FILE
+        echo completed >> $LOG_FILE
 fi
 
 
