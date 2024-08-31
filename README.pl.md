@@ -2,15 +2,17 @@
 [![en](https://img.shields.io/badge/lang-en-red.svg)](README.md)
 [![pl](https://img.shields.io/badge/lang-pl-green.svg)](README.pl.md)
 
+WIP
+
 # Hello fellow QO-100 aficionados,
 Here's another realization of a ground station based on <a href="https://wiki.analog.com/university/tools/pluto/hacking/hardware#revision_b" target="_blank">Pluto</a>. Designed as a sturdy box to be thrown on your roof requires just a single Ethernet cable to talk to. It hosts the great <a href="https://github.com/F1ATB/Remote-SDR" target="_blank">F1ATB Remote-SDR</a> web-based transceiver but when roaming in your LAN you can also enjoy the <a href="https://www.sdr-radio.com/console" target="_blank">G4ELI SDR Console</a> desktop application. Pluto is running on a customized firmware from <a href="https://www.f5uii.net/wp-content/uploads/2021/03/pluto.zip" target="_blank">F5UII</a>. Assemblage of assorted open-source candies makes for a comfortable phone operation.
 
-Features:
-- operation via a web browser incl. full duplex and live waterfall display
-- direct network access to Pluto for 3rd party applications
-- push-to-talk automation
-- frequency stability from GPS Disciplined Oscillator
-- power from PoE only
+Cechy:
+- obsługa poprzez przeglądarkę internetową w tym pełny dupleks i wodospad
+- bezpośredni dostęp do Pluto dla innych aplikacji
+- automatyzacja PTT
+- stabilność częstotliwości z GPSDO
+- zasilanie wyłącznie z PoE
 
 :warning:Remote operation possible after meeting <a href="https://forum.amsat-dl.org/index.php?thread/3234-remote-operation-via-qo-100/" target="_blank">AMSAT requirements</a>. For the on-demand immediate shutdown capability I'm using a Wi-Fi plug to cut off AC from the PoE injector.
 
