@@ -5,6 +5,12 @@
 # Hello fellow QO-100 aficionados,
 Here's another realization of a ground station based on <a href="https://wiki.analog.com/university/tools/pluto/hacking/hardware#revision_b" target="_blank">Pluto</a>. Designed as a sturdy box to be thrown on your roof requires just a single Ethernet cable to talk to. It hosts the great <a href="https://github.com/F1ATB/Remote-SDR" target="_blank">F1ATB Remote-SDR</a> web-based transceiver but when roaming in your LAN you can also enjoy the <a href="https://www.sdr-radio.com/console" target="_blank">G4ELI SDR Console</a> desktop application. Pluto is running on a customized firmware from <a href="https://www.f5uii.net/wp-content/uploads/2021/03/pluto.zip" target="_blank">F5UII</a>. Assemblage of assorted open-source candies makes for a comfortable phone operation.
 
+The device has four panel sockets:
+- **RJ-45**: Ethernet+PoE
+- **N**: 2.4GHz transmitter output
+- **F**: input from LNB
+- **SMA**: GPS active antenna
+
 Features:
 - operation via a web browser incl. full duplex and live waterfall display
 - direct network access to Pluto for 3rd party applications

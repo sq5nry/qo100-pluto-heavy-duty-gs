@@ -2,109 +2,110 @@
 [![en](https://img.shields.io/badge/lang-en-red.svg)](README.md)
 [![pl](https://img.shields.io/badge/lang-pl-green.svg)](README.pl.md)
 
-WIP
+# Witaj miłośniku łączności satelitarnych przez QO-100,
+Oto kolejna realizacja stacji QO-100 na bazie <a href="https://wiki.analog.com/university/tools/pluto/hacking/hardware#revision_b" target="_blank">Pluto</a>. Zaprojektowana jako hermetyczne pudełko które możesz położyć na dachu i podłączyć jednym kablem Ethernet. Obsługa poprzez www: <a href="https://github.com/F1ATB/Remote-SDR" target="_blank">F1ATB Remote-SDR</a> a także, będąc w lokalnej sieci, bezpośrednio przez aplikację desktopową <a href="https://www.sdr-radio.com/console" target="_blank">G4ELI SDR Console</a>. Pluto działa na alternatywnym firmwared od <a href="https://www.f5uii.net/wp-content/uploads/2021/03/pluto.zip" target="_blank">F5UII</a>. Dodatkowe moduły automatyki i stabilizacji częstotliwości gwarantują wygodną pracę foniczną.
 
-# Hello fellow QO-100 aficionados,
-Here's another realization of a ground station based on <a href="https://wiki.analog.com/university/tools/pluto/hacking/hardware#revision_b" target="_blank">Pluto</a>. Designed as a sturdy box to be thrown on your roof requires just a single Ethernet cable to talk to. It hosts the great <a href="https://github.com/F1ATB/Remote-SDR" target="_blank">F1ATB Remote-SDR</a> web-based transceiver but when roaming in your LAN you can also enjoy the <a href="https://www.sdr-radio.com/console" target="_blank">G4ELI SDR Console</a> desktop application. Pluto is running on a customized firmware from <a href="https://www.f5uii.net/wp-content/uploads/2021/03/pluto.zip" target="_blank">F5UII</a>. Assemblage of assorted open-source candies makes for a comfortable phone operation.
+Urządzenie posiada cztery hermetyczne gniazda:
+- **RJ-45**: Ethernet+PoE
+- **N**: wyście nadajnika 2.4GHz
+- **F**: wejście z LNB
+- **SMA**: aktywna antena GPS
 
 Cechy:
 - obsługa poprzez przeglądarkę internetową w tym pełny dupleks i wodospad
-- bezpośredni dostęp do Pluto dla innych aplikacji
-- automatyzacja PTT
-- stabilność częstotliwości z GPSDO
+- bezpośredni dostęp do Pluto dla innych aplikacji np. SDR Console
+- automatyczna obsługa PTT
+- stabilność częstotliwości gwarantowana przez GPSDO
 - zasilanie wyłącznie z PoE
 
-:warning:Remote operation possible after meeting <a href="https://forum.amsat-dl.org/index.php?thread/3234-remote-operation-via-qo-100/" target="_blank">AMSAT requirements</a>. For the on-demand immediate shutdown capability I'm using a Wi-Fi plug to cut off AC from the PoE injector.
+:warning: Do pracy zdalnej należy spełnić <a href="https://forum.amsat-dl.org/index.php?thread/3234-remote-operation-via-qo-100/" target="_blank">wymagania AMSAT</a>. Używam gniazdka sterowanego przez Wi-Fi i aplikację w telefonie, odcina ono zasilanie do inżektora PoE.
 
-| deployment example               | inside the box |
-|----------------------------------|----------|
+| wygląd ogólny                    | wnętrze                            |
+|----------------------------------|------------------------------------|
 | ![overview](pics/deployment.jpg) | ![interior](pics/opened-front.jpg) |
 
-
-# Operation
-1. Connect to a router with DHCP server via 802.3bt PoE injector offering 90W. 15 meters of SSTP CAT6 works fine. The Raspberry host will be reachable under hostname `remsdr-rpi4`. Configure remote access (eg port forwarding or <a href="https://www.zerotier.com" target="_blank">ZeroTier VPN</a> - installed)
-2. Configure the web access <a href="https://remsdr-rpi4/settings.html"  target="_blank">https://remsdr-rpi4/settings.html</a> as described in <a href="https://f1atb.fr/remote-sdr-v5-raspberry-4b-or-orange-pi-image-installation/" target="_blank">https://f1atb.fr/remote-sdr-v5-raspberry-4b-or-orange-pi-image-installation</a>. Finally, navigate to the start page <a href="https://remsdr-rpi4" target="_blank">https://remsdr-rpi4</a>.
-3. Alternatively, connect to Pluto locally by specifying `ip:remsdr-rpi4` as an address. Parallel use with the web interface mostly won't work.\
- For SDR Console follow the <a href="https://www.sdr-radio.com/EsHail-2" target="_blank">configuration manual</a>. Connect the USB push-to-talk button and volume knob for best experience.
+# Obsługa
+1. Podłącz urządzenie do routera z serwerem DHCP poprzez inżektor PoE 802.3bt o wydajności 90W. 15 metrowy kabel SSTP CAT6 działa w porządku. Host Raspberry będzie osiągalnu pod nazwą `remsdr-rpi4`. Skonfiguruj zdalny dostęp według potrzeb (np. port forwarding lub <a href="https://www.zerotier.com" target="_blank">ZeroTier VPN</a> którego również zainstalowałem)
+2. Skonfiguruj dostęp przez www <a href="https://remsdr-rpi4/settings.html"  target="_blank">https://remsdr-rpi4/settings.html</a> według opisu <a href="https://f1atb.fr/remote-sdr-v5-raspberry-4b-or-orange-pi-image-installation/" target="_blank">https://f1atb.fr/remote-sdr-v5-raspberry-4b-or-orange-pi-image-installation</a>. Następnie wejdź na stronę startową <a href="https://remsdr-rpi4" target="_blank">https://remsdr-rpi4</a>.
+3. Możesz także podłączyć się bezpośrednio do Pluto z wybranej aplikacji obsługującej tego SDRa, należy ustawić jego adres jako `ip:remsdr-rpi4`. Równoczesna praca z aplikacją www nie jest gwarantowana. \
+ Dla aplikacji SDR Console zapoznaj się z <a href="https://www.sdr-radio.com/EsHail-2" target="_blank">poradnikiem konfiguracji</a>. Podłącz manipulator PTT i gałkę głośności (osobny kontroler MIDI USB) dla większej wygody użytkowania.
  
-| Arduino Due MIDI controller      |
-|----------------------------------|
+| kontroler MIDI na Arduino Due            |
+|----------------------------------------------------------|
 | ![Arduino Due MIDI controller](sw-midi-ctrl/ptt-vol.jpg) |
 
-:warning: Smooth remote work when talking directly to Pluto (eg. SDR Console) requires a low-jitter 20Mbps connection to stream the whole 500kHz NB transponder. Web interface will settle for an ordinary 512kbps link.
+:warning: Płynna praca zdalna w trybie bezpośredniego połączenia do Pluto (np. SDR Console) wymaga stabilnego łącza o przepustowości 20Mbps ponieważ przesyłane są dane z całego transpondera NB (500kHz). Natomiast praca przez aplikację www zadowoli się zwykłym łączem 512kbps.
 
-# Troubleshooting
-1. Restart Pluto via web interface
-2. Try turning it off and on again using your remote AC switch
-3. Check GPS status on the dashboard panel inside the box
-4. Log in via SSH to conduct further diagnosis
+# Rozwiązywanie problemów
+1. Zrestartuj Pluto uzywając przycisku w aplikacji www
+2. Wyłącz i włącz ponownie całe urządzenie odłączając na chwilę zasilanie
+3. Sprawdź stan generatora GPSDO na panelu diagnostycznym czy aktywny jest sygnal PPS
+4. Zaloguj się do RPi przez SSH aby wykonać dalszą diagnostykę.
 
-# Service manual
-General block diagram: [main.pdf](hw-block-diagrams/main.pdf)
+# Instrukcja serwisowa
+Schemat blokowy: [main.pdf](hw-block-diagrams/main.pdf)
 
 ## Pluto SDR
-Built on top of rev. 'B' with two modules added inside the Pluto enclosure: external clock input and PTT output. Flashed with a firmware from F5UII https://www.f5uii.net/wp-content/uploads/2021/03/pluto.zip, here used only for the PTT when working with SDR Console. PTT is active when GPO0 is high and GPO1 is low to counteract transients on Pluto boot (read more here https://hf5l.pl/adalm-pluto-do-qo100-i-nie-tylko/). Here's ready module employing an 817 optocoupler: ![module.png](hw-pluto-ptt/module.png) \
-Schematics diagram: [pluto_ptt.pdf](hw-pluto-ptt/pluto_ptt.pdf)
+Bazą jest wersja 'B' do której dodałem dwa moduły do środka obudowy Pluto: wejście zewnętrznego zegara i wyjście PTT. Firmware pochodzi od F5UII https://www.f5uii.net/wp-content/uploads/2021/03/pluto.zip, tu wykorzystane tylko do automatyzacji PTT. Wyjście aktywuje się gdy GPO0 jest w stanie wysokim a GPO1 niskim, ma to na celu ochronę przed stanami nieustalonymi przy starcie (tu przeczytasz więcej: https://hf5l.pl/adalm-pluto-do-qo100-i-nie-tylko/). Oto gotowy moduł z transoptorem 817 zamiast przekaźnika: ![module.png](hw-pluto-ptt/module.png) \
+Schemat ideowy: [pluto_ptt.pdf](hw-pluto-ptt/pluto_ptt.pdf)
 
-To install this extension, drill a hole on Pluto's plastic wall and mount a Cinch connector. Fix the PCB by tightening it via existing hole with a longer screw to the mainboard with a 5mm plastic spacer.
+Do zainstalowania tego rozszerzenia wywierć otwór ok. 5mm w plastikowej ściance z gniazdami i zamontuj smukłe gniazdo Cinch. Przykręć płytkę do istniejącego otworu mocującego płytę główną dodając plastikowy dystans 5mm.
 
-External clock feed for Pluto is designed by DM5RM https://forum.amsat-dl.org/index.php?thread/3199-external-clock-for-adalm-pluto/. Operation hinges on a clever idea of creating a small DC component from the clock signal for switching inputs between internal oscillator (not very stable for transmitting) and external one. I've added a blue LED informing that the external clock is active. External clock is generated by GPSDO. There's a blocking capacitor before the isolating transformer as the GPSDO Si5351 output stage doesn't like DC shorts.
+Moduł zewnętrznego zegara bezuje na designie DM5RM https://forum.amsat-dl.org/index.php?thread/3199-external-clock-for-adalm-pluto/. Zawiera on separację galwaniczną, detektor zewnętrznego zegara, bufor oraz sterowanie wbudowanym oscylatorem Pluto. Dodałem niebieską diodę LED wskazującą aktywne wejście zewnętrzne.
 ![general.jpg](hw-pluto-ext-clock/general.jpg)
 ![module.jpg](hw-pluto-ext-clock/module.jpg)
-Schematics diagram: [pluto_clock_buffer-sch.pdf](hw-pluto-ext-clock/pluto_clock_buffer-sch.pdf) \
-To install this extension, drill a hole on Pluto's plastic wall and tight fit an SMA edge connector between RX and TX ports. Put additional insulation tape to avoid bridging grounds of the SMA and that of Pluto. Use a short IPEX pigtail between the SMA connector and the board. Wire four terminal posts parallel to the onboard oscillator (1.8V, OUT, E/D, GND). Fix the PCB by tightening it via existing hole in a similar manner as the PTT extension. Place another wire from USB for 5V supply (attach to the filtering cap as shown in the picture); this line also routes to the PTT board.
+Schemat ideowy: [pluto_clock_buffer-sch.pdf](hw-pluto-ext-clock/pluto_clock_buffer-sch.pdf) \
+Do zainstalowania tego rozszerzenia wywierć otwór 6mm między gniazdami RX i TX Pluto. Na płytę główną wciśnij złącze krawędziowe SMA przedtem izolując miejsce taśmą izolacyjną aby zapobiec złączeniu się mas gniazda SMA oraz Pluto. Krótkim odcinkiem przewodu koncentrycznego połącz gniazdo i płytkę. Przylutuj cztery przewody do istniejącego oscylatora Pluto i podłącz je do modułu. Zamocuj go podobnie jak moduł PTT. Zasilanie podprowadź z USB osobnym kablem lutując go do kondensatora filtrującego jak na rysunku. To napięcie również zasila rozszerzenie PTT.
 
-A no-name 2.4GHz power amplifier delivers abt. 10W at 24V & 2A. It is mounted on a heatsink, further pressed against the enclosure wall. Internally it comprises three stages: SAW filter, MMIC pre-amplifier, and final stage with a directional coupler for forward power measurement. PTT powers the MMIC and biases the final stage hence the ~90mA current consumption.
+Wzmacniacz mocy 2.4GHz dostarcza ok. 10W przy zasilaniu 24V 2A. Zamontowany jest na radiatorze który dodatkowo przyciśnięty jest do obudowy urządzenia. Składa się z filtru SAW, przedwzmacniacza MMIC oraz stopnia mocy i sprzęgacza kierunkowego do pomiaru mocy. Linia PTT wymaga wydajności prądowej ok. 90mA ponieważ nie tylko polaryzuje stopień końcowy ale też zasila MMIC-a.
 ![13cm_PA.jpg](pics/13cm_PA.jpg)
 
-Receive path consists of an LNB and the bias-tee. I have added an option of switching LNA voltage for H/V polarisation control, for future wideband use.
+Ścieżka odbiorcza składa się z typowego LNB oraz bias-tee który wydziela sygnał p.cz. 738MHz i podaje go bezpośrednio na port RX Pluto. Dodałem opcję przełączania napięcia LNA dla kontroli polaryzacji H/V dla przyszłych eksperymentów z odbiorem DATV.
 ![biastee.jpg](hw-biastee-lna/biastee.jpg) \
-Schematics diagram: [pluto_biastee.pdf](hw-biastee-lna/pluto_biastee.pdf)
+Schemat ideowy: [pluto_biastee.pdf](hw-biastee-lna/pluto_biastee.pdf)
 
 ## Raspberry Pi 4B
-The platform is running the image from F1ATB https://f1atb.fr/remote-sdr-v5-raspberry-4b-or-orange-pi-image-installation/ and is serving a web-based Remote SDR application for receiving and transmitting via Pluto. In addition, Pluto's libiio endpoint is exposed externally so that you can connect to it via SDR Console or another client. In this mode, RPi is acting as a router between Pluto's network and RPi host. One GPIO pin is the PTT output and connects to the control board. \
-Network script for exposing Pluto over RPi's ethernet interface: [ext-pluto](scripts/ext-pluto). Copy it under _/etc/network/interfaces_.
+Mikrokomputer ten działa na obrazie  https://f1atb.fr/remote-sdr-v5-raspberry-4b-or-orange-pi-image-installation/ który zawiera aplikację Remote SDR autorstwa F1ATB pozwalającą na odbiór i nadawanie poprzez stronę www. Jeden pin GPIO wyprowadzony jest do modułu sterującego PTT. \
+W trybie bezpośredniego dostępu, endpoint libiio Pluto wystawiony jest na zewnątrz umożliwiając podłączenie się przez SDR Console lub inną ulubioną aplikację. Niezbędne jest zainstalowanie skryptu aplikującego reguły sieciowe: [ext-pluto](scripts/ext-pluto). Skopiuj go do _/etc/network/interfaces_.
 
-## Power and PTT control
-Power supply is provided from a power regulator of the PoE splitter, preset to 24V and rated at 90W max. It goes directly to:
-- the 2.4GHz power amplifier
-- bias-tee and LNA power regulator
-- 5V 8A regulator for all other modules
+## Zasilanie i sterowanie PTT
+Źródłem zasilania jest przetwornica w splitterze PoE, ustawiona na 24V i mająca wydaność 90W. Napięcie to zasila:
+- wzmacniacz mocy 2.4GHz
+- bias-tee dla LNA wraz ze stabilizatorem 13/17V
+- przetwornicę 5V 8A dla wszystkich pozostałych modułów
 
-Each downstream line is protected by a resettable polymer fuse. \
-Schematics diagram: [pluto_pwr_ctrl.pdf](hw-psu-ctrl/pluto_pwr_ctrl.pdf) 
+Każda linia zabezpieczona jest bezpiecznikiem polimerowym. \
+Schemat blokowy: [pluto_pwr_ctrl.pdf](hw-psu-ctrl/pluto_pwr_ctrl.pdf)
 
-| 5V regulator close-up                           |
-|-------------------------------------------------|
+| przetwornica 5V                                |
+|------------------------------------------------|
 | ![5V_stepdown.jpg](hw-psu-ctrl/5V_stepdown.jpg) |
 
-On the same board is also mounted the PTT circuitry that sums both PTT inputs (from RPi GPIO and Pluto PTT) and switches on PTT voltage for PA (abt. 100mA current consumption).
+Na tej płytce zamontowane jest również sterowanie nadajnikiem które sumuje obydwa wejścia PTT (z RPi GPIO0 oraz Pluta PTT) oraz załącza napięcie PTT dla wzmacniacza mocy.
 
-## GPSDO
-Based on projects of W3PM (http://www.knology.net/~gmarcus/), SQ1GU (http://sq1gu.tobis.com.pl/pl/syntezery-dds/44-generator-si5351a) and SP3VSS (https://sp3vss.eu/moje-konstrukcje/gpsdo-generator-synchronizowany-gps/).
-It generates fixed 40MHz frequency 40MHz stabilized by the GPS PPS signal and consists of three common-off-the-shelf modules: Arduino Nano (clone), Si5351 synthesizer and a GPS.
-This is a minimal implementation of the oscillator, without display and buttons. I have introduced the following changes to the source code:
-- removed handling of display and buttons
-- added initial frequency correction (about 4kHz) so that at least one synchronization round can be saved. Value is hardcoded and based on a coarse one-time measurement.
-- added a duplicated PPS output via GPIO for diagnostics which drives a LED at 0,5Hz and 50% duty.
-- code refactoring and clean-up
+## Generator GPSDO
+Bazowałem na projektach: W3PM (http://www.knology.net/~gmarcus/), SQ1GU (http://sq1gu.tobis.com.pl/pl/syntezery-dds/44-generator-si5351a) oraz SP3VSS (https://sp3vss.eu/moje-konstrukcje/gpsdo-generator-synchronizowany-gps/).
+Generuje on ustaloną częstotliwość 40MHz stabilizowaną według impulsu PPS z GPS. Składa się z popularnych modułów: Arduino Nano (klon), syntezer Si5351 oraz odbiornik GPS uBlox Neo6. Jest to minimalna implementacja sprzętowa, bez wyświetlacza i przycisków. Wprowadziłem kilka zmian do kodu:
+- usunąłem osbługę nieużywanych peryferiów
+- dodałem wstępną korektę częstotliwości (ok. 4kHz) która przyśpiesza uzyskanie stabilizacji. Wartość tę zmierzyłem zgrubnie i umieściłem w kodzie
+- sterowanie diodą LED PPS aby migała zmieniając stan co sekundę dla łatwej obserwacji
+- refaktoring kodu
 
-Sketch: [gpsdo_minimal.ino](hw-gpsdo/gpsdo_minimal.ino) \
-Block diagram: [gpsdo.pdf](hw-gpsdo/gpsdo.pdf) \
+Listing: [gpsdo_minimal.ino](hw-gpsdo/gpsdo_minimal.ino) \
+Schemat blokowy: [gpsdo.pdf](hw-gpsdo/gpsdo.pdf) \
 ![module.jpg](hw-gpsdo/module.jpg) \
-Output spectrum: ![spectrum.png](hw-gpsdo/spectrum.png)
-The spectrum shows a decent pattern for square wave harmonics, however 2nd order components are relatively high and decay only up to -50dBc at 1GHz. Notable are numerous spikes spaced at 200kHz, most probably being a residue from the internal Si5351 PLL stage. I haven't noticed any audible difference between this GPSDO and internal Pluto clock when working on the narrowband transponder. Wideband use might require a cleaner signal with respect to the jitter but I haven't checked that.
+Widmo: ![spectrum.png](hw-gpsdo/spectrum.png)
+Spektrum pokazuje oczekiwane składowe sygnału prostokątnego oraz niewielką zawartośc parzystych harmonicznych. Liczne prążki w odstępie 200kHz pochodzą prawdopodobnie z części PLL syntezera Si5351, mają jednak dość małą amplitudę. Nie zauważyłem słyszalnych różnic między tym a generowanym wewnętrznie sygnałem zegarowym.
 
-The diagnostics board houses two LEDs showing status of the GPSDO:
-- pulse-per-second indicator showing the GPS receiver has signal
-- high-accuracy (<1Hz) achieved
+Moduł diagnostyczny zawiera dwie zielone diody LED informujące o stanie pracy generatora GPSDO:
+- sygnał PPS, pulsowanie co 1 sekundę. Oznacza, że odbiornik zaczął odbierać sygnał z satelit; pomaga w wybraniu lokalizacji anteny odbiorczej GPS.
+- osiągnięta wysoka dokładność stabilizacji (<1Hz), może pojawić się po kilku minutach. Typowo odchyłka osiąga 2..3Hz.
 
-In addition:
-- red LED when TX is engaged
-- bargraph for TX output level
-![diagnostic-board.jpg](hw-diagnostics/diagnostic-board.jpg)
+Dodatkowo diagnostyka pokazuje:
+- załączony nadajnik: czerwona dioda LED
+- kolorowy bargraph: poziom mocy wyjściowej.
+  ![diagnostic-board.jpg](hw-diagnostics/diagnostic-board.jpg)
 
-## Transmit button and volume knob
-SDR Console application accepts MIDI-based devices to control transceiver functions. A simple implementation for PTT and volume knob can be realized using an Arduino module with USB device native support. I've used a clone: _Due R3 SAM3X8E CORTEX-M3_. 
-I based on the project presented here: https://go.musiconerd.com/code-gen-basic \
-Sketch: [midi_controller_Duo_v2.ino](sw-midi-ctrl%2Fmidi_controller_Duo_v2/midi_controller_Duo_v2.ino)
+## Przycisk PTT oraz regulacja głośności
+SDR Console pozwala skonfigurować kontroler MIDI do sterowania różnymi funkcjami, np. PTT, przestrajanie, regulacja głośności i wiele innych. Najprościej zrealizować to używając modułu Arduino wspierającego natywnie urządzenie USB. Użyłem klona _Due R3 SAM3X8E CORTEX-M3_ i bazowałem na projekcie https://go.musiconerd.com/code-gen-basic. Mikroprzełącznik załącza i wyłącza nadajnik i podłączony jest pod wybrany GPIO. Potencjometr 47k podłączony jest pod wejście ADC oraz linie zasilania 5V i GND. Konfiguracja jest trywialna i sprowadza się do wciśnięcia przycisku lub poruszenia potencjometrem aby aplikacja zarejestrowała tzw. kanał i przypisała go: https://www.sdr-radio.com/midi-controllers. \
+Listing: [midi_controller_Duo_v2.ino](sw-midi-ctrl%2Fmidi_controller_Duo_v2/midi_controller_Duo_v2.ino)
