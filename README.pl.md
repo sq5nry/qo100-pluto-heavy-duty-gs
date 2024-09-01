@@ -40,7 +40,7 @@ Cechy:
 1. Zrestartuj Pluto uzywając przycisku w aplikacji www
 2. Wyłącz i włącz ponownie całe urządzenie odłączając na chwilę zasilanie
 3. Sprawdź stan generatora GPSDO na panelu diagnostycznym czy aktywny jest sygnal PPS
-4. Zaloguj się do RPi przez SSH aby wykonać dalszą diagnostykę.
+4. Zaloguj się do RPi przez SSH aby wykonać dalszą diagnostykę
 
 # Instrukcja serwisowa
 Schemat blokowy: [main.pdf](hw-block-diagrams/main.pdf)
@@ -84,7 +84,7 @@ Schemat blokowy: [pluto_pwr_ctrl.pdf](hw-psu-ctrl/pluto_pwr_ctrl.pdf)
 Na tej płytce zamontowane jest również sterowanie nadajnikiem które sumuje obydwa wejścia PTT (z RPi GPIO0 oraz Pluta PTT) oraz załącza napięcie PTT dla wzmacniacza mocy.
 
 ## Generator GPSDO
-Bazowałem na projektach: W3PM (http://www.knology.net/~gmarcus/), SQ1GU (http://sq1gu.tobis.com.pl/pl/syntezery-dds/44-generator-si5351a) oraz SP3VSS (https://sp3vss.eu/moje-konstrukcje/gpsdo-generator-synchronizowany-gps/).
+Bazowałem na projektach: W3PM (https://github.com/W3PM/GPS-Si5351-VFO-QEX-JUL-AUG-2015), SQ1GU (http://sq1gu.tobis.com.pl/pl/syntezery-dds/44-generator-si5351a) oraz SP3VSS (https://sp3vss.eu/moje-konstrukcje/gpsdo-generator-synchronizowany-gps/).
 Generuje on ustaloną częstotliwość 40MHz stabilizowaną według impulsu PPS z GPS. Składa się z popularnych modułów: Arduino Nano (klon), syntezer Si5351 oraz odbiornik GPS uBlox Neo6. Jest to minimalna implementacja sprzętowa, bez wyświetlacza i przycisków. Wprowadziłem kilka zmian do kodu:
 - usunąłem osbługę nieużywanych peryferiów
 - dodałem wstępną korektę częstotliwości (ok. 4kHz) która przyśpiesza uzyskanie stabilizacji. Wartość tę zmierzyłem zgrubnie i umieściłem w kodzie
@@ -108,4 +108,4 @@ Dodatkowo diagnostyka pokazuje:
 
 ## Przycisk PTT oraz regulacja głośności
 SDR Console pozwala skonfigurować kontroler MIDI do sterowania różnymi funkcjami, np. PTT, przestrajanie, regulacja głośności i wiele innych. Najprościej zrealizować to używając modułu Arduino wspierającego natywnie urządzenie USB. Użyłem klona _Due R3 SAM3X8E CORTEX-M3_ i bazowałem na projekcie https://go.musiconerd.com/code-gen-basic. Mikroprzełącznik załącza i wyłącza nadajnik i podłączony jest pod wybrany GPIO. Potencjometr 47k podłączony jest pod wejście ADC oraz linie zasilania 5V i GND. Konfiguracja jest trywialna i sprowadza się do wciśnięcia przycisku lub poruszenia potencjometrem aby aplikacja zarejestrowała tzw. kanał i przypisała go: https://www.sdr-radio.com/midi-controllers. \
-Listing: [midi_controller_Duo_v2.ino](sw-midi-ctrl%2Fmidi_controller_Duo_v2/midi_controller_Duo_v2.ino)
+Listing: [midi_controller_Duo_v2.ino](sw-midi-ctrl/midi_controller_Duo_v2/midi_controller_Duo_v2.ino)

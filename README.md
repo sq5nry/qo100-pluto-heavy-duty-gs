@@ -39,7 +39,7 @@ Features:
 
 # Troubleshooting
 1. Restart Pluto via web interface
-2. Try turning it off and on again using your remote AC switch
+2. Try turning it off and on again using your remote AC switch. Pluto and software on RPi becomes operational within a minute.
 3. Check GPS status on the dashboard panel inside the box
 4. Log in via SSH to conduct further diagnosis
 
@@ -85,7 +85,7 @@ Schematics diagram: [pluto_pwr_ctrl.pdf](hw-psu-ctrl/pluto_pwr_ctrl.pdf)
 On the same board is also mounted the PTT circuitry that sums both PTT inputs (from RPi GPIO and Pluto PTT) and switches on PTT voltage for PA (abt. 100mA current consumption).
 
 ## GPSDO
-Based on projects of W3PM (http://www.knology.net/~gmarcus/), SQ1GU (http://sq1gu.tobis.com.pl/pl/syntezery-dds/44-generator-si5351a) and SP3VSS (https://sp3vss.eu/moje-konstrukcje/gpsdo-generator-synchronizowany-gps/).
+Based on projects of W3PM (https://github.com/W3PM/GPS-Si5351-VFO-QEX-JUL-AUG-2015), SQ1GU (http://sq1gu.tobis.com.pl/pl/syntezery-dds/44-generator-si5351a) and SP3VSS (https://sp3vss.eu/moje-konstrukcje/gpsdo-generator-synchronizowany-gps/).
 It generates fixed 40MHz frequency 40MHz stabilized by the GPS PPS signal and consists of three common-off-the-shelf modules: Arduino Nano (clone), Si5351 synthesizer and a GPS.
 This is a minimal implementation of the oscillator, without display and buttons. I have introduced the following changes to the source code:
 - removed handling of display and buttons
