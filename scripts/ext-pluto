@@ -1,23 +1,18 @@
-#!/bin/sh
+LOG_FILE=/var/tmp/pluto-network-config.txt
 
-# quit if we're called for the loopback
-if [ "$IFACE" = "lo" ]; then
-        exit 0
+echo $interface $reason >> $LOG_FILE
+if [ "$interface" = "eth0" ]; then
+        if [ "$reason" = "BOUND" ]; then
+                date >> $LOG_FILE
+                echo starting >> $LOG_FILE
+                ETH_IP=$(ip -brief address show eth0 | awk '{print $3}' | awk -F/ '{print $1}')
+                PLUTO_IP=192.168.2.1
+                echo ETHIP=$ETH_IP, PLUTO_IP=$PLUTO_IP, adding rules >> $LOG_FILE
+                sudo iptables -t nat -A PREROUTING -p tcp --dport 30431 -j DNAT --to-destination ${PLUTO_IP}:30431
+                sudo iptables -t nat -A POSTROUTING -p tcp -d ${PLUTO_IP} --dport 30431 -j SNAT --to-source ${ETH_IP}
+                iptables-save | sudo tee -a $LOG_FILE > /dev/null
+                echo rules saved, setting ipv4.ip_forward=1 >> $LOG_FILE
+                sudo sysctl net.ipv4.ip_forward=1
+                printf "done\n\n" >> $LOG_FILE
+        fi
 fi
-
-if [ "$PHASE" = "post-up" ]; then
-        LOG_FILE=/var/tmp/pluto-network-config.txt
-        date >> $LOG_FILE
-        echo starting >> $LOG_FILE
-        ETH_IP=$(ip -brief address show eth0 | awk '{print $3}' | awk -F/ '{print $1}')
-        PLUTO_IP=192.168.2.1
-        echo ETHIP=$ETH_IP, PLUTO_IP=$PLUTO_IP, adding rules >> $LOG_FILE
-        sudo iptables -t nat -A PREROUTING -p tcp --dport 30431 -j DNAT --to-destination ${PLUTO_IP}:30431
-        sudo iptables -t nat -A POSTROUTING -p tcp -d ${PLUTO_IP} --dport 30431 -j SNAT --to-source ${ETH_IP}
-        iptables-save | sudo tee -a $LOG_FILE > /dev/null
-        echo rules saved, setting ipv4.ip_forward=1 >> $LOG_FILE
-        sudo sysctl net.ipv4.ip_forward=1
-        echo completed >> $LOG_FILE
-fi
-
-
