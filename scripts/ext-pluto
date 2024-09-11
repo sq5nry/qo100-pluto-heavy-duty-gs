@@ -2,7 +2,7 @@ LOG_FILE=/var/tmp/pluto-network-config.txt
 
 echo $interface $reason >> $LOG_FILE
 if [ "$interface" = "eth0" ]; then
-        if [ "$reason" = "BOUND" ]; then
+        if [ "$reason" = "BOUND" ] || [ "$reason" = "IPV4LL" ]; then
                 date >> $LOG_FILE
                 echo starting >> $LOG_FILE
                 ETH_IP=$(ip -brief address show eth0 | awk '{print $3}' | awk -F/ '{print $1}')
