@@ -180,3 +180,6 @@ Dodatkowo diagnostyka pokazuje:
 ## Przycisk PTT oraz regulacja głośności
 SDR Console pozwala skonfigurować kontroler MIDI do sterowania różnymi funkcjami, np. PTT, przestrajanie, regulacja głośności i wiele innych. Najprościej zrealizować to używając modułu Arduino wspierającego natywnie urządzenie USB. Użyłem klona _Due R3 SAM3X8E CORTEX-M3_ i bazowałem na projekcie https://go.musiconerd.com/code-gen-basic. Mikroprzełącznik załącza i wyłącza nadajnik i podłączony jest pod wybrany GPIO. Potencjometr 47k podłączony jest pod wejście ADC oraz linie zasilania 5V i GND. Konfiguracja jest trywialna i sprowadza się do wciśnięcia przycisku lub poruszenia potencjometrem aby aplikacja zarejestrowała tzw. kanał i przypisania go: https://www.sdr-radio.com/midi-controllers. \
 Listing: [midi_controller_Duo_v2.ino](sw-midi-ctrl/midi_controller_Duo_v2/midi_controller_Duo_v2.ino)
+
+# Kosztorys
+[kosztorys](bom.html)
