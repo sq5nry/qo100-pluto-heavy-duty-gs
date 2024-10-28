@@ -30,7 +30,8 @@ Urządzenie posiada cztery gniazda:
 
 ## Gdzie się sprawdzi?
 - jeśli z powodów np. bezpieczeństwa nie możemy pozwolić sobie na doprowadzenie zasilania sieciowego
-- mamy ograniczone możliwości okablowania - wystarczy jest jeden kabel sieciowy do sterowania i zasilania. Urządzenie najsensowniej umieścić jest blisko czaszy satelitarnej, wraz z anteną GPS aby w szczególności zminimalizować straty w nadawaniu. 
+- mamy ograniczone możliwości okablowania - wystarczy jest jeden kabel sieciowy do sterowania i zasilania. Urządzenie najsensowniej umieścić jest blisko czaszy satelitarnej, wraz z anteną GPS aby w szczególności zminimalizować straty w nadawaniu.
+- łączność w sytuacjach kryzysowych gdzie operator musi być w innej lokalizacji
 - praca w warunkach atmosferycznych
 - gdy po prostu chcemy mieć stację QO-100 i korzystać z niej gdy jesteśmy poza domem
 - jeśli planujemy rozbudowę o pracę all-mode w pasmach amatorskich w zakresie do 70MHz do 6GHz aby wykorzystać pełen potencjał Pluto. W obudowie jest wolna przestrzeń ok. 28 x 13 x 11cm w której zmieści się przekaźnik TX/RX, filtry oraz wzmacniacz mocy. Rozważ zamontowanie osobnego gniazda antenowego na inne pasma aby uniknąć przełączania TX 2.4GHz. Limitem będzie też dostępna moc zasilania 90W. W urządzeniu jest zapas mocy wystarczający na zainstalowanie wzmacniacza 2.4GHz 20W z którym, wraz z anteną 120cm możemy pokusić się o próby z DATV (czego do tej pory nie testowałem).
@@ -180,6 +181,21 @@ Dodatkowo diagnostyka pokazuje:
 ## Przycisk PTT oraz regulacja głośności
 SDR Console pozwala skonfigurować kontroler MIDI do sterowania różnymi funkcjami, np. PTT, przestrajanie, regulacja głośności i wiele innych. Najprościej zrealizować to używając modułu Arduino wspierającego natywnie urządzenie USB. Użyłem klona _Due R3 SAM3X8E CORTEX-M3_ i bazowałem na projekcie https://go.musiconerd.com/code-gen-basic. Mikroprzełącznik załącza i wyłącza nadajnik i podłączony jest pod wybrany GPIO. Potencjometr 47k podłączony jest pod wejście ADC oraz linie zasilania 5V i GND. Konfiguracja jest trywialna i sprowadza się do wciśnięcia przycisku lub poruszenia potencjometrem aby aplikacja zarejestrowała tzw. kanał i przypisania go: https://www.sdr-radio.com/midi-controllers. \
 Listing: [midi_controller_Duo_v2.ino](sw-midi-ctrl/midi_controller_Duo_v2/midi_controller_Duo_v2.ino)
+
+## Higrometr
+Istotnym aspektem jest utrzymanie i kontrola wilgotności wewnątrz urządzenia. Zastosowana obudowa zapewnia szczelność za sprawą solidnych uszczelek oraz zaimpregnowanych gniazd. Praca w skrajnych warunkach atmosferycznych może jednak nadwyrężyć te środki, dlatego zainstalowałem woreczek z żelem krzemionkowym oraz czujnik wilgotności (i temperatury). Monitorowanie wilgotności zrealizowałem z użyciem dedykowanej biblioteki w Pythonie [skrypt](scripts/humidity.sh) a kilka ostatnich odczytów wyświetlanych jest po zalogowaniu się na Raspberry. Oczekiwane są wskazania oscylujące wokół 8% a rosnąca wartość może oznaczać rozhermetyzowanie się lub wdzieranie się wody.
+Dane z sygnaturami czasowymi zbierane są do pliku csv co godzinę poprzez cykliczne uruchamianie skryptu moniturującego przez *cron* gdy urządzenie działa. Użyłem instrukcji dostępnych pod  https://learn.adafruit.com/dht-humidity-sensing-on-raspberry-pi-with-gdocs-logging/python-setup.
+
+<img src="pics/silica_gel.jpg" alt="żel krzemionkowy" width="400"/>
+
+Czujnik DHT21 (AM2301) oraz po zainstalowaniu:
+
+<img src="pics/humidity_sensor.jpg" alt="czujnik wilgotności" width="500"/>
+<img src="pics/humidity_sensor_2.jpg" alt="zamontowany czujnik" width="400"/>
+
+Działanie desykantu widać na wykresie poniżej, w okresie 1.5 dnia od zamknięcia obudowy.
+
+<img src="pics/humidity_measurements.png" alt="działanie pochłaniacza wilgotności" width="400"/>
 
 # Kosztorys
 [kosztorys](bom.html)
